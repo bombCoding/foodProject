@@ -6,7 +6,7 @@
 <generatorConfiguration>
 	<!--<classPathEntry location="C:\Users\sily\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />-->
 	<!--<classPathEntry location="C:\Users\雨燕飞时\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />-->
-	<classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" />
+	<classPathEntry location="C:\Users\田宝军\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
 
 	<context id="mysqlTables" targetRuntime="MyBatis3">
 
@@ -20,8 +20,8 @@
 
 		
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/foor_test?characterEncoding=utf8&amp;useSSL=false"
-			userId="root" password="root">
+			connectionURL="jdbc:mysql://39.104.170.215:3306/foor_test?characterEncoding=utf8&amp;useSSL=false"
+			userId="pst" password="pst123">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -45,7 +45,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="foor_test" tableName="employee_copy"
+		<table schema="foor_test" tableName="picAndVideos"
 			   enableCountByExample="false" enableUpdateByExample="false"
 			   enableDeleteByExample="false" enableSelectByExample="false"
 			   selectByExampleQueryId="false">
