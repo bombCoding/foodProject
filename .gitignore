@@ -1,0 +1,8 @@
+﻿#排除提交git版本库上的文件
+target
+.idea
+.settings
+.project
+.classpath
+*.iml
+generatorConfig.xml
