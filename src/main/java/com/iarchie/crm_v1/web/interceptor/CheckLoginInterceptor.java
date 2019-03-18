@@ -21,7 +21,7 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
         //判断用户是否登入
         if (UserContext.getCurrentUser() == null) {
             response.sendRedirect("login.jsp");
-            System.out.println("CheckLoginInterceptor.preHandle" + "----------------未登入------拦截请求--------------->");
+            System.out.println("CheckLoginInterceptor.preHandle" + "----------------未登录------拦截请求--------------->");
             return false;
         }
         return true;

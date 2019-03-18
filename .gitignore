@@ -1,8 +1,13 @@
-﻿#排除提交git版本库上的文件
-target
-.idea
-.settings
-.project
-.classpath
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+/.idea
 *.iml
-generatorConfig.xml
+.classpath
+.project
+/target
+/.settings
+out
+gen
