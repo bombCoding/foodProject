@@ -9,5 +9,6 @@
 .project
 /target
 /.settings
+generatorConfig.xml
 out
 gen
