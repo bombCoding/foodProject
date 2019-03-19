@@ -29,18 +29,18 @@
 		</javaTypeResolver>
 
 		<!--//实体类-->
-		<javaModelGenerator targetPackage="com.iarchie.crm_v1.domain"
+		<javaModelGenerator targetPackage="com.nutFruit.food.domain"
 			targetProject="D:\WorkSpace\prectice\foodproject\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!--xml-->
-		<sqlMapGenerator targetPackage="com.iarchie.crm_v1.mapper"
+		<sqlMapGenerator targetPackage="com.nutFruit.food.mapper"
 			targetProject="D:\WorkSpace\prectice\foodproject\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!--xmlMapper-->
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.iarchie.crm_v1.mapper"
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.nutFruit.food.mapper"
 							 targetProject="D:\WorkSpace\prectice\foodproject\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>

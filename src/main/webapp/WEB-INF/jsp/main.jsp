@@ -1,4 +1,4 @@
-<%@ page import="com.iarchie.crm_v1.context.UserContext" %>
+<%@ page import="com.nutFruit.food.context.UserContext" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String contextPath = request.getContextPath();
