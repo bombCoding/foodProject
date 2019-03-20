@@ -24,10 +24,10 @@
                     <img src="<%=contextPath%>/images/ic_sys.png" class="layui-nav-img">
                     <%=UserContext.getCurrentUser().getLoginname()%>
                 </a>
-                <dl class="layui-nav-child">
+                <%--<dl class="layui-nav-child">
                     <dd><a href="javascript:;" target="iframe">基本资料</a></dd>
                     <dd><a href="javascript:;" target="iframe">安全设置</a></dd>
-                </dl>
+                </dl>--%>
             </li>
             <li class="layui-nav-item"><a href="<%=contextPath%>/loginOut">退出</a></li>
         </ul>
@@ -44,20 +44,20 @@
                         <dd><a href="<%=contextPath%>/admin/addView" target="iframe">添加用户</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <%--<li class="layui-nav-item">
                     <a href="javascript:;">职位管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/position/positionView" target="iframe">职位查询</a></dd>
                         <dd><a href="<%=contextPath%>/position/addView" target="iframe">添加职位</a></dd>
                     </dl>
-                </li>
-                <li class="layui-nav-item">
+                </li>--%>
+                <%--<li class="layui-nav-item">
                     <a href="javascript:;">部门管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/department/deptView" target="iframe">部门查询</a></dd>
                         <dd><a href="<%=contextPath%>/department/deptAddView" target="iframe">添加部门</a></dd>
                     </dl>
-                </li>
+                </li>--%>
                 <li class="layui-nav-item">
                     <a href="javascript:;">员工管理</a>
                     <dl class="layui-nav-child">

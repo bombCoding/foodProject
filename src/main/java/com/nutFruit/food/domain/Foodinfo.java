@@ -95,4 +95,19 @@ public class FoodInfo implements Serializable {
     public void setFoodDesc(String foodDesc) {
         this.foodDesc = foodDesc == null ? null : foodDesc.trim();
     }
+
+    @Override
+    public String toString() {
+        return "FoodInfo{" +
+                "id=" + id +
+                ", foodName='" + foodName + '\'' +
+                ", recommendedPrice=" + recommendedPrice +
+                ", flag='" + flag + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", createUserId='" + createUserId + '\'' +
+                ", updateUserId='" + updateUserId + '\'' +
+                ", foodDesc='" + foodDesc + '\'' +
+                '}';
+    }
 }

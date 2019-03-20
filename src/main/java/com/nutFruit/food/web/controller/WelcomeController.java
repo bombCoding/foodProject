@@ -1,6 +1,7 @@
 package com.nutFruit.food.web.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 @Controller
 public class WelcomeController {
+
+
 
     @RequestMapping("/hello")
     public String welcome(){
@@ -30,9 +33,11 @@ public class WelcomeController {
      * @Author: sun JinShuang
      * @return
      */
-    @RequestMapping(path = "/rentCommunityInit",method = RequestMethod.GET)
+    @RequestMapping(path = "/gongaoList",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getRenttingCommunity(){
+
+
         Map<String, Object> map = new HashMap<>();
         map.put("code", 0);
         map.put("msg", "");

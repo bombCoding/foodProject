@@ -1,14 +1,8 @@
 package com.nutFruit.food;
 
 
-import com.nutFruit.food.domain.Department;
-import com.nutFruit.food.domain.Employee;
-import com.nutFruit.food.domain.Position;
-import com.nutFruit.food.domain.User;
-import com.nutFruit.food.service.IDepartmentService;
-import com.nutFruit.food.service.IEmployeeService;
-import com.nutFruit.food.service.IPositionService;
-import com.nutFruit.food.service.IUserService;
+import com.nutFruit.food.domain.*;
+import com.nutFruit.food.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +13,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = "classpath:applicationContext.xml")
-public class App {
+public class AppTest {
 
 
     @Autowired
@@ -32,6 +26,18 @@ public class App {
     private IPositionService positionService;
     @Autowired
     private IDepartmentService departmentService;
+
+    @Autowired
+    private IFoodInfoService iFoodInfoService;
+
+
+    @Test
+    public void testFoodList() {
+        List<FoodInfo> foodInfos = iFoodInfoService.selectAll(1,5);
+        for (FoodInfo foodInfo : foodInfos) {
+            System.out.println("foodInfo = " + foodInfo.toString());
+        }
+    }
 
     @Test
     public void test() {

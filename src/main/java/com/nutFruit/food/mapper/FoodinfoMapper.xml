@@ -155,4 +155,14 @@
       update_user_id = #{updateUserId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAllInfo" resultMap="ResultMapWithBLOBs" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from food_info
+    where flag = 1
+    limit #{startIndex},#{pageSize}
+  </select>
 </mapper>
