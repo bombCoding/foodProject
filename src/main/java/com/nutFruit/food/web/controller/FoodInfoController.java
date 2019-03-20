@@ -20,4 +20,9 @@ public class FoodInfoController {
 
         return "foodInfo/foodInfo";
     }
+    @RequestMapping("/foodAdd")
+    public String foodInfoAdd(){
+        return "foodInfo/uploadPic";
+    }
+
 }

@@ -16,14 +16,11 @@
 <body>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend style="text-align: center">CRM文件系统页面</legend>
+    <legend style="text-align: center">菜品信息查询</legend>
 </fieldset>
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">
 
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-            <legend>下载文件中心</legend>
-        </fieldset>
         <div class="layui-form" style="text-align: center">
             <table class="layui-table">
                 <colgroup>

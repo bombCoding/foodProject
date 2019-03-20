@@ -83,6 +83,7 @@
                     <a href="javascript:;">菜品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/foodInfo/foodView" target="iframe">菜品查询</a></dd>
+                        <dd><a href="<%=contextPath%>/foodInfo/foodAdd" target="iframe">菜品信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
