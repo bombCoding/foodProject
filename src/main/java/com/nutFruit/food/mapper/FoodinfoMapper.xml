@@ -1,140 +1,158 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.nutFruit.food.mapper.FoodinfoMapper" >
-  <resultMap id="BaseResultMap" type="com.nutFruit.food.domain.Foodinfo" >
-    <id column="Id" property="id" jdbcType="VARCHAR" />
-    <result column="foodName" property="foodname" jdbcType="VARCHAR" />
-    <result column="foodDesc" property="fooddesc" jdbcType="VARCHAR" />
-    <result column="recommendedPrice" property="recommendedprice" jdbcType="DOUBLE" />
+<mapper namespace="com.nutFruit.food.mapper.FoodInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.nutFruit.food.domain.FoodInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="recommended_price" property="recommendedPrice" jdbcType="DOUBLE" />
     <result column="flag" property="flag" jdbcType="CHAR" />
-    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="creator" property="creator" jdbcType="VARCHAR" />
-    <result column="updator" property="updator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.nutFruit.food.domain.FoodInfo" extends="BaseResultMap" >
+    <result column="food_desc" property="foodDesc" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, foodName, foodDesc, recommendedPrice, flag, createTime, updateTime, creator, 
-    updator
+    id, food_name, recommended_price, flag, create_time, update_time, create_user_id, 
+    update_user_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <sql id="Blob_Column_List" >
+    food_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from foodInfo
-    where Id = #{id,jdbcType=VARCHAR}
+    ,
+    <include refid="Blob_Column_List" />
+    from food_info
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from foodInfo
-    where Id = #{id,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from food_info
+    where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.nutFruit.food.domain.Foodinfo" >
-    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+  <insert id="insert" parameterType="com.nutFruit.food.domain.FoodInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into foodInfo (foodName, foodDesc, recommendedPrice, 
-      flag, createTime, updateTime, 
-      creator, updator)
-    values (#{foodname,jdbcType=VARCHAR}, #{fooddesc,jdbcType=VARCHAR}, #{recommendedprice,jdbcType=DOUBLE}, 
-      #{flag,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{creator,jdbcType=VARCHAR}, #{updator,jdbcType=VARCHAR})
+    insert into food_info (food_name, recommended_price, flag, 
+      create_time, update_time, create_user_id, 
+      update_user_id, food_desc)
+    values (#{foodName,jdbcType=VARCHAR}, #{recommendedPrice,jdbcType=DOUBLE}, #{flag,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{foodDesc,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.nutFruit.food.domain.Foodinfo" >
-    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+  <insert id="insertSelective" parameterType="com.nutFruit.food.domain.FoodInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into foodInfo
+    insert into food_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="foodname != null" >
-        foodName,
+      <if test="foodName != null" >
+        food_name,
       </if>
-      <if test="fooddesc != null" >
-        foodDesc,
-      </if>
-      <if test="recommendedprice != null" >
-        recommendedPrice,
+      <if test="recommendedPrice != null" >
+        recommended_price,
       </if>
       <if test="flag != null" >
         flag,
       </if>
-      <if test="createtime != null" >
-        createTime,
+      <if test="createTime != null" >
+        create_time,
       </if>
-      <if test="updatetime != null" >
-        updateTime,
+      <if test="updateTime != null" >
+        update_time,
       </if>
-      <if test="creator != null" >
-        creator,
+      <if test="createUserId != null" >
+        create_user_id,
       </if>
-      <if test="updator != null" >
-        updator,
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="foodDesc != null" >
+        food_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="foodname != null" >
-        #{foodname,jdbcType=VARCHAR},
+      <if test="foodName != null" >
+        #{foodName,jdbcType=VARCHAR},
       </if>
-      <if test="fooddesc != null" >
-        #{fooddesc,jdbcType=VARCHAR},
-      </if>
-      <if test="recommendedprice != null" >
-        #{recommendedprice,jdbcType=DOUBLE},
+      <if test="recommendedPrice != null" >
+        #{recommendedPrice,jdbcType=DOUBLE},
       </if>
       <if test="flag != null" >
         #{flag,jdbcType=CHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null" >
-        #{creator,jdbcType=VARCHAR},
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
       </if>
-      <if test="updator != null" >
-        #{updator,jdbcType=VARCHAR},
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="foodDesc != null" >
+        #{foodDesc,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.nutFruit.food.domain.Foodinfo" >
-    update foodInfo
+  <update id="updateByPrimaryKeySelective" parameterType="com.nutFruit.food.domain.FoodInfo" >
+    update food_info
     <set >
-      <if test="foodname != null" >
-        foodName = #{foodname,jdbcType=VARCHAR},
+      <if test="foodName != null" >
+        food_name = #{foodName,jdbcType=VARCHAR},
       </if>
-      <if test="fooddesc != null" >
-        foodDesc = #{fooddesc,jdbcType=VARCHAR},
-      </if>
-      <if test="recommendedprice != null" >
-        recommendedPrice = #{recommendedprice,jdbcType=DOUBLE},
+      <if test="recommendedPrice != null" >
+        recommended_price = #{recommendedPrice,jdbcType=DOUBLE},
       </if>
       <if test="flag != null" >
         flag = #{flag,jdbcType=CHAR},
       </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null" >
-        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null" >
-        creator = #{creator,jdbcType=VARCHAR},
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
       </if>
-      <if test="updator != null" >
-        updator = #{updator,jdbcType=VARCHAR},
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="foodDesc != null" >
+        food_desc = #{foodDesc,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where Id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.nutFruit.food.domain.Foodinfo" >
-    update foodInfo
-    set foodName = #{foodname,jdbcType=VARCHAR},
-      foodDesc = #{fooddesc,jdbcType=VARCHAR},
-      recommendedPrice = #{recommendedprice,jdbcType=DOUBLE},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nutFruit.food.domain.FoodInfo" >
+    update food_info
+    set food_name = #{foodName,jdbcType=VARCHAR},
+      recommended_price = #{recommendedPrice,jdbcType=DOUBLE},
       flag = #{flag,jdbcType=CHAR},
-      createTime = #{createtime,jdbcType=TIMESTAMP},
-      updateTime = #{updatetime,jdbcType=TIMESTAMP},
-      creator = #{creator,jdbcType=VARCHAR},
-      updator = #{updator,jdbcType=VARCHAR}
-    where Id = #{id,jdbcType=VARCHAR}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      food_desc = #{foodDesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nutFruit.food.domain.FoodInfo" >
+    update food_info
+    set food_name = #{foodName,jdbcType=VARCHAR},
+      recommended_price = #{recommendedPrice,jdbcType=DOUBLE},
+      flag = #{flag,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

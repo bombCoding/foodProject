@@ -1,17 +1,19 @@
 package com.nutFruit.food.mapper;
 
-import com.nutFruit.food.domain.Foodinfo;
+import com.nutFruit.food.domain.FoodInfo;
 
-public interface FoodinfoMapper {
-    int deleteByPrimaryKey(String id);
+public interface FoodInfoMapper {
+    int deleteByPrimaryKey(Long id);
 
-    int insert(Foodinfo record);
+    int insert(FoodInfo record);
 
-    int insertSelective(Foodinfo record);
+    int insertSelective(FoodInfo record);
 
-    Foodinfo selectByPrimaryKey(String id);
+    FoodInfo selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(Foodinfo record);
+    int updateByPrimaryKeySelective(FoodInfo record);
 
-    int updateByPrimaryKey(Foodinfo record);
+    int updateByPrimaryKeyWithBLOBs(FoodInfo record);
+
+    int updateByPrimaryKey(FoodInfo record);
 }

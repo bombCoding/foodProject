@@ -3,57 +3,49 @@ package com.nutFruit.food.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Foodinfo implements Serializable {
-    private String id;
+public class FoodInfo implements Serializable {
+    private Long id;
 
-    private String foodname;
+    private String foodName;
 
-    private String fooddesc;
-
-    private Double recommendedprice;
+    private Double recommendedPrice;
 
     private String flag;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date updatetime;
+    private Date updateTime;
 
-    private String creator;
+    private String createUserId;
 
-    private String updator;
+    private String updateUserId;
+
+    private String foodDesc;
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getFoodname() {
-        return foodname;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFoodname(String foodname) {
-        this.foodname = foodname == null ? null : foodname.trim();
+    public void setFoodName(String foodName) {
+        this.foodName = foodName == null ? null : foodName.trim();
     }
 
-    public String getFooddesc() {
-        return fooddesc;
+    public Double getRecommendedPrice() {
+        return recommendedPrice;
     }
 
-    public void setFooddesc(String fooddesc) {
-        this.fooddesc = fooddesc == null ? null : fooddesc.trim();
-    }
-
-    public Double getRecommendedprice() {
-        return recommendedprice;
-    }
-
-    public void setRecommendedprice(Double recommendedprice) {
-        this.recommendedprice = recommendedprice;
+    public void setRecommendedPrice(Double recommendedPrice) {
+        this.recommendedPrice = recommendedPrice;
     }
 
     public String getFlag() {
@@ -64,35 +56,43 @@ public class Foodinfo implements Serializable {
         this.flag = flag == null ? null : flag.trim();
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdatetime() {
-        return updatetime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getCreateUserId() {
+        return createUserId;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+    public void setCreateUserId(String createUserId) {
+        this.createUserId = createUserId == null ? null : createUserId.trim();
     }
 
-    public String getUpdator() {
-        return updator;
+    public String getUpdateUserId() {
+        return updateUserId;
     }
 
-    public void setUpdator(String updator) {
-        this.updator = updator == null ? null : updator.trim();
+    public void setUpdateUserId(String updateUserId) {
+        this.updateUserId = updateUserId == null ? null : updateUserId.trim();
+    }
+
+    public String getFoodDesc() {
+        return foodDesc;
+    }
+
+    public void setFoodDesc(String foodDesc) {
+        this.foodDesc = foodDesc == null ? null : foodDesc.trim();
     }
 }
