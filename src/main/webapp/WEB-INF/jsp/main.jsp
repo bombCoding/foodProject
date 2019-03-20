@@ -80,6 +80,12 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
+                    <a href="javascript:;">菜品管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="<%=contextPath%>/foodInfo/foodView" target="iframe">菜品查询</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a href="javascript:;">系统设置</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/loginOut">退出系统</a></dd>
