@@ -15,50 +15,79 @@
 </head>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-    <legend>文件上传</legend>
+    <legend  style="text-align: center">菜品信息录入</legend>
 </fieldset>
 <form class="layui-form" method="post">
     <div style="padding: 20px; background-color: #F2F2F2;">
-        <div class="layui-row layui-col-space15">
-            <div class="layui-inline">
-                <label class="layui-form-label">上传文件：</label>
-                <div class="layui-input-inline">
-                    <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
-                </div>
+        <label class="layui-form-label">菜品名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="foodName" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input" style="width:50%">
+        </div>
+        <br/>
+        <label class="layui-form-label">菜品价格</label>
+        <div class="layui-input-block">
+            <input type="text" name="foodPrice" lay-verify="title" autocomplete="off" placeholder="请输入菜品单价" class="layui-input"  style="width:50%">
+        </div>
+        <br/>
+        <label class="layui-form-label">是否上架</label>
+        <div class="layui-input-block">
+            <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+        </div>
+        <br/>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">菜品描述</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入菜品描述信息" class="layui-textarea" style="width:50%"></textarea>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">文件描述</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="filemsg" lay-verify="required" autocomplete="off" placeholder="请输入文件描述"
-                           class="layui-input">
-                </div>
+        </div>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="test2">多图片上传</button>
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                预览图：
+                <div class="layui-upload-list" id="demo2"></div>
+            </blockquote>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
-            <button class="layui-btn" lay-submit lay-filter="formBtn"
-                    style="margin-left: 120px">立即添加
-            </button>
         </div>
     </div>
 </form>
 
 <script src="<%=contextPath%>/layui/layui.js"></script>
 <script>
-    layui.use(['upload', 'form'], function () {
+    layui.use('upload', function(){
         var $ = layui.jquery
-        var form = layui.form
-            , upload = layui.upload;
+                ,upload = layui.upload;
+
+        //多图片上传
         upload.render({
-            elem: '#test3'
-            , url: '/upload/'
-            , accept: 'file' //普通文件
-            , auto: false
-            , done: function (res) {
-                console.log(res)
+            elem: '#test2'
+            ,url: '/upload/'
+            ,multiple: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="width:100px;height:100px;margin-left:10px">')
+                });
+            }
+            ,done: function(res){
+                //上传完毕
             }
         });
-        form.on('submit(formBtn)', function (data) {
-            console.log(data);
-            return false;
+
+    });
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
+
     });
 
 </script>
