@@ -12,3 +12,4 @@
 generatorConfig.xml
 out
 gen
+/target/foodProject-1.0-SNAPSHOT/WEB-INF/classes/log4j.properties
