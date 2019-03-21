@@ -41,6 +41,8 @@
             <mvc:exclude-mapping path="/images/**"/>
             <!--放行验证码刷新-->
             <mvc:exclude-mapping path="/imageCode"/>
+            <!--暂时放行app接口-->
+            <mvc:exclude-mapping path="/foodInfo/app-*"/>
             <bean class="com.nutFruit.food.web.interceptor.CheckLoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

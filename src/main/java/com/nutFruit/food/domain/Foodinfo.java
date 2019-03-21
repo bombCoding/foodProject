@@ -1,7 +1,11 @@
 package com.nutFruit.food.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class FoodInfo implements Serializable {
     private Long id;
@@ -12,6 +16,8 @@ public class FoodInfo implements Serializable {
 
     private String flag;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     private Date updateTime;
@@ -21,6 +27,8 @@ public class FoodInfo implements Serializable {
     private String updateUserId;
 
     private String foodDesc;
+
+    private List<FoodPic> foodPics;
 
     private static final long serialVersionUID = 1L;
 
@@ -94,6 +102,14 @@ public class FoodInfo implements Serializable {
 
     public void setFoodDesc(String foodDesc) {
         this.foodDesc = foodDesc == null ? null : foodDesc.trim();
+    }
+
+    public List<FoodPic> getFoodPics() {
+        return foodPics;
+    }
+
+    public void setFoodPics(List<FoodPic> foodPics) {
+        this.foodPics = foodPics;
     }
 
     @Override

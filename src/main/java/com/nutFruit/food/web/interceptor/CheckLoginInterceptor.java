@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Tomlin
  * @ClassName CheckLoginInterceptor
  * @Description: TODO
- * @date 2018/12/27 15:59
+ * @date 2019/03/21 15:59
  * @Viersion V1.0.1
  */
 public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
@@ -20,7 +20,8 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //判断用户是否登入
         if (UserContext.getCurrentUser() == null) {
-            response.sendRedirect("login.jsp");
+            String baseUrl = request.getServletContext().getContextPath();
+            response.sendRedirect(baseUrl + "/login.jsp");
             System.out.println("CheckLoginInterceptor.preHandle" + "----------------未登录------拦截请求--------------->");
             return false;
         }

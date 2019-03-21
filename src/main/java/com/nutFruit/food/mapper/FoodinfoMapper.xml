@@ -156,13 +156,26 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="selectAllInfo" resultMap="ResultMapWithBLOBs" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from food_info
-    where flag = 1
-    limit #{startIndex},#{pageSize}
+  <resultMap id="ResultMapWithPic" type="com.nutFruit.food.domain.FoodInfo" >
+    <id column="fid" property="id" jdbcType="BIGINT" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="recommended_price" property="recommendedPrice" jdbcType="DOUBLE" />
+    <result column="flag" property="flag" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="food_desc" property="foodDesc" jdbcType="LONGVARCHAR" />
+    <collection property="foodPics" column="id" fetchType="eager"
+                 select="com.nutFruit.food.mapper.FoodPicMapper.selectByFoodId"/>
+  </resultMap>
+
+
+  <select id="selectAllInfo" resultMap="ResultMapWithPic" parameterType="map" >
+    SELECT  i.id id, i.food_name, i.recommended_price, i.flag, i.create_time, i.update_time, i.create_user_id,
+            i.update_user_id,i.food_desc
+    FROM food_info i
+    WHERE flag = 1 ORDER BY id DESC
+    limit ${startIndex},${pageSize}
   </select>
 </mapper>

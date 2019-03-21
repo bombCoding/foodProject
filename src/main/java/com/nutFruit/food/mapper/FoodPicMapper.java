@@ -2,6 +2,8 @@ package com.nutFruit.food.mapper;
 
 import com.nutFruit.food.domain.FoodPic;
 
+import java.util.List;
+
 public interface FoodPicMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface FoodPicMapper {
     int updateByPrimaryKeySelective(FoodPic record);
 
     int updateByPrimaryKey(FoodPic record);
+
+    List<FoodPic> selectByFoodId(Long foodId);
 }

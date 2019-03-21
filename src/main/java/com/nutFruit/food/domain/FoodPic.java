@@ -11,6 +11,8 @@ public class FoodPic implements Serializable {
 
     private String imgUrl;
 
+    private Integer status;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -43,5 +45,24 @@ public class FoodPic implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl == null ? null : imgUrl.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "FoodPic{" +
+                "id=" + id +
+                ", foodId=" + foodId +
+                ", type=" + type +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

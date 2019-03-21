@@ -66,6 +66,13 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
+                    <a href="javascript:;">菜品管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="<%=contextPath%>/foodInfo/foodList" target="iframe">菜品查询</a></dd>
+                        <dd><a href="<%=contextPath%>/foodInfo/foodAdd" target="iframe">菜品信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a href="javascript:;">公告管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/notice/noticeView" target="iframe">公告查询</a></dd>
@@ -77,13 +84,6 @@
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/download/downloadView" target="iframe">文档查询</a></dd>
                         <dd><a href="<%=contextPath%>/download/uploadView" target="iframe">上传文档</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">菜品管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="<%=contextPath%>/foodInfo/foodView" target="iframe">菜品查询</a></dd>
-                        <dd><a href="<%=contextPath%>/foodInfo/foodAdd" target="iframe">菜品信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

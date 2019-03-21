@@ -17,6 +17,8 @@ public class FoodInfoServiceImpl implements IFoodInfoService {
 
     @Autowired
     private FoodInfoMapper foodInfoMapper;
+
+
     @Override
     public int deleteByPrimaryKey(Long id) {
         return foodInfoMapper.deleteByPrimaryKey(id);

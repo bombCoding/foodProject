@@ -6,12 +6,13 @@
     <result column="food_id" property="foodId" jdbcType="BIGINT" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, food_id, type, img_url
+    id, food_id, type, img_url,status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from food_pic
     where id = #{id,jdbcType=BIGINT}
@@ -24,10 +25,8 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into food_pic (food_id, type, img_url
-      )
-    values (#{foodId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}
-      )
+    insert into food_pic (food_id, type, img_url,status)
+    values (#{foodId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR},#{status,jdbcType=INTEGER} )
   </insert>
   <insert id="insertSelective" parameterType="com.nutFruit.food.domain.FoodPic" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -44,6 +43,9 @@
       <if test="imgUrl != null" >
         img_url,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="foodId != null" >
@@ -54,6 +56,9 @@
       </if>
       <if test="imgUrl != null" >
         #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -69,6 +74,9 @@
       <if test="imgUrl != null" >
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -76,7 +84,16 @@
     update food_pic
     set food_id = #{foodId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
-      img_url = #{imgUrl,jdbcType=VARCHAR}
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByFoodId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from food_pic
+    where food_id = #{foodId,jdbcType=BIGINT} AND  type = 1 AND  status =1
+  </select>
+
 </mapper>
