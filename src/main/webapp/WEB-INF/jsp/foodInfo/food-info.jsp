@@ -32,86 +32,45 @@
 
 <%--隐藏编辑弹窗表单--%>
 <div class="layui-row" id="popUpdateEmp" style="display:none;">
-    <div class="layui-col-md10">
-        <form class="layui-form layui-from-pane" action="" style="margin-top:20px">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-inline">
-                        <input id="name" type="text" name="name" lay-verify="required" autocomplete="off"
-                               placeholder="请输入姓名"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-inline">
-                        <input type="radio" name="sex" value="男" title="男" checked="">
-                        <input type="radio" name="sex" value="女" title="女">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">手机号</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" id="phone" name="phone" lay-verify="required|phone" autocomplete="off"
-                               placeholder="请输入手机号"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="email" name="email" lay-verify="email" autocomplete="off"
-                               placeholder="请输入邮箱"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">职位</label>
-                    <div class="layui-input-inline">
-                        <select name="positionId" lay-filter="required" id="positionId">
-                            <option value="">请选择职位</option>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">学历</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="eduschool" name="eduschool" lay-verify="required" autocomplete="off"
-                               placeholder="请输入学历"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">身份证</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="idcard" name="idcard" lay-verify="required" autocomplete="off"
-                               placeholder="请输入身份证"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">部门</label>
-                    <div class="layui-input-inline">
-                        <select name="deptId" lay-filter="required" id="deptId">
-                            <option value="">请选择部门</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">联系地址</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="address" name="address" lay-verify="required" autocomplete="off"
-                               placeholder="请输入联系地址" class="layui-input">
-                    </div>
+    <form class="layui-form" method="post">
+        <div style="padding: 20px; background-color: #F2F2F2;">
+            <input type="text" id="foodId" name="id" lay-verify="title" hidden>
+            <label class="layui-form-label">菜品名称</label>
+            <div class="layui-input-block">
+                <input type="text" id="foodName" name="foodName" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input" style="width:50%">
+            </div>
+            <br/>
+            <label class="layui-form-label">菜品价格</label>
+            <div class="layui-input-block">
+                <input type="text" id="foodPrice" name="foodPrice" lay-verify="title" autocomplete="off" placeholder="请输入菜品单价" class="layui-input"  style="width:50%">
+            </div>
+            <br/>
+            <label class="layui-form-label">是否上架</label>
+            <div class="layui-input-block">
+                <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+            </div>
+            <br/>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">菜品描述</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入菜品描述信息" id="foodDesc" class="layui-textarea" ></textarea>
                 </div>
             </div>
-            <button class="layui-btn" lay-submit lay-filter="updateFormBtn"
-                    style="margin-left: 120px">立即添加
-            </button>
-        </form>
-    </div>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" id="demo2"></div>
+                </blockquote>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="updateFormBtn">提交修改</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script type="text/html" id="barDemo">
@@ -130,7 +89,7 @@
             , url: '<%=contextPath%>/foodInfo/list' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {type: 'checkbox', fixed: 'left'}
+                /*{type: 'checkbox', fixed: 'left'}*/
                 , {field: 'foodName', title: '菜名', width: 120}
                 , {field: 'recommendedPrice', title: '推荐价', width: 90}
                 , {field: 'flag', title: '状态', width: 90}
@@ -151,21 +110,21 @@
         table.on('tool(test)', function (obj) {
             var data = obj.data;
             if (obj.event == 'del') {
-                layer.confirm('真的删除员工\t' + data.name + "\t吗！", function (index) {
-
+                layer.confirm('确认删除这条信息吗！', function (index) {
                     //异步像服务器发送删除请求
                     $.ajax({
-                        url: '<%=contextPath%>/employee/empDelete',
-                        type: 'GET',
+                        url: '<%=contextPath%>/foodInfo/delete',
+                        type: 'POST',
                         data: {'id': data.id},
+                        dataType:'JSON',
                         success: function (result) {
-                            if (result == "success") {
-                                layer.msg("删除成功!" + result, {icon: 6});
+                            if (result.code == 0) {
+                                layer.msg("删除成功!" , {icon: 6});
                                 obj.del();
                                 layer.close(index);
 
                             } else {
-                                layer.msg("删除失败!" + result, {icon: 5});
+                                layer.msg("删除失败!", {icon: 5});
                                 layer.close(index);
                             }
                         },
@@ -180,18 +139,18 @@
             } else if (obj.event == 'edit') {
                 layer.open({
                     type: 1,
-                    title: "更新用户",
-                    area: ['480px', '510px'],
+                    title: "修改信息",
+                    area: ['700px', '500px'],
                     content: $("#popUpdateEmp"),
                     success: function () {
                         //回显数据
-                        $("#name").val(data.name);
-                        $("#phone").val(data.phone);
-                        $("#email").val(data.email);
-                        $("#eduschool").val(data.eduschool);
-                        $("#idcard").val(data.idcard);
+                        $("#foodName").val(data.foodName);
+                        $("#foodPrice").val(data.recommendedPrice);
+                        $("#foodDesc").val(data.foodDesc);
+                        $("#foodId").val(data.id);
+                        /*$("#idcard").val(data.idcard);
                         $("#address").val(data.address);
-                        $("#createtime").val(data.createtime);
+                        $("#createtime").val(data.createtime);*/
                     },
                 });
             }
@@ -200,12 +159,12 @@
         form.on('submit(updateFormBtn)', function (data) {
             //发送ajax请求
             $.ajax({
-                url: '<%=contextPath%>/employee/empUpdate',
+                url: '<%=contextPath%>/foodInfo/update',
                 data: JSON.stringify(data.field),
                 type: 'POST',
                 contentType: 'application/json',  //数据类型格式
                 success: function (result) {
-                    if (result == "success") {
+                    if (result.code == 0) {
                         layer.closeAll();
                         layer.msg('更新成功', {time: 1 * 1000}, function () {
                             location.reload();

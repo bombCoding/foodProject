@@ -114,4 +114,14 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="selectAllInfo" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM video_info
+    WHERE id = #{id,jdbcType=BIGINT}
+    ORDER BY id DESC
+    limit ${startIndex},${pageSize}
+  </select>
 </mapper>

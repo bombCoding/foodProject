@@ -15,13 +15,13 @@
 </head>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend style="text-align: center">员工列表界面</legend>
+    <legend style="text-align: center">菜品管理界面</legend>
 </fieldset>
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-header">员工信息列表</div>
+                <div class="layui-card-header">菜品信息列表</div>
                 <form action="" method="post">
                     <table id="demo" lay-filter="test"></table>
                 </form>
@@ -127,57 +127,26 @@
         table.render({
             elem: '#demo'
             , height: 400
-            , url: '<%=contextPath%>/employee/empList' //数据接口
+            , url: '<%=contextPath%>/foodInfo/list' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'name', title: '姓名', width: 90}
-                , {field: 'sex', title: '性别', width: 60}
-                , {field: 'phone', title: '手机号', width: 120}
-                , {field: 'email', title: '邮箱', width: 140}
-                , {field: 'positionId', templet: '<div>{{d.positionId.positionname}}</div>', title: '职位', width: 150}
-                , {field: 'eduschool', title: '学历', width: 70}
-                , {field: 'idcard', title: '身份证', width: 180}
+                , {field: 'foodName', title: '菜名', width: 120}
+                , {field: 'recommendedPrice', title: '推荐价', width: 90}
+                , {field: 'flag', title: '状态', width: 90}
+                , {field: 'foodDesc', title: '简介', width: 600}
+                , {field: 'createTime', title: '添加时间', width: 200}
+                /*, {field: 'pic', title: '图片', width: 70}*/
+               /* , {field: 'idcard', title: '身份证', width: 180}
                 , {field: 'deptId', templet: '<div>{{d.deptId.deptname}}</div>', title: '部门', width: 80}
                 , {field: 'address', title: '坐标地址', width: 150}
-                , {field: 'createtime', title: '建档日期', width: 180}
+                , {field: 'createtime', title: '建档日期', width: 180}*/
                 , {
                     fixed: 'right', title: '操作', toolbar: '#barDemo', width: 120
                 }
             ]]
         });
-        //动态加载职位
-        $.ajax({
-            url: "<%=contextPath%>/position/positionOption",
-            type: 'POST',
-            dataType: 'json',
-            success: function (result) {
-                var list = result; //返回的数据
-                for (var i = 0; i < list.length; i++) {
-                    //追加option
-                    $("#positionId").append("<option value=" + list[i].id + ">" + list[i].positionname + "</option>");
-                    //渲染刷新
-                    form.render('select');
-                }
-            },
-        });
-        //动态添加部门
-        //动态加载部门option
-        $.ajax({
-            url: '<%=contextPath%>/department/deptOption',
-            type: 'POST',
-            dataType: 'json',
-            success: function (result) {
-                var list = result;
-                for (var i = 0; i < list.length; i++) {
-                    //追加option
-                    $("#deptId").append("<option value=" + list[i].id + ">" + list[i].deptname + "</option>");
-                    //渲染刷新
-                    form.render('select');
-                }
-            },
 
-        });
         //监听行工具事件
         table.on('tool(test)', function (obj) {
             var data = obj.data;
@@ -191,12 +160,12 @@
                         data: {'id': data.id},
                         success: function (result) {
                             if (result == "success") {
-                                layer.msg("删除成功!" , {icon: 6});
+                                layer.msg("删除成功!" + result, {icon: 6});
                                 obj.del();
                                 layer.close(index);
 
                             } else {
-                                layer.msg("删除失败!", {icon: 5});
+                                layer.msg("删除失败!" + result, {icon: 5});
                                 layer.close(index);
                             }
                         },

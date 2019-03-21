@@ -15,7 +15,7 @@
 </head>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend style="text-align: center">欢迎使用CRM人事管理公告模块</legend>
+    <legend style="text-align: center">欢迎使用公告模块</legend>
 </fieldset>
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">

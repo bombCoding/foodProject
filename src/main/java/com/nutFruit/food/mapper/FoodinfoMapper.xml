@@ -157,7 +157,7 @@
   </update>
 
   <resultMap id="ResultMapWithPic" type="com.nutFruit.food.domain.FoodInfo" >
-    <id column="fid" property="id" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="food_name" property="foodName" jdbcType="VARCHAR" />
     <result column="recommended_price" property="recommendedPrice" jdbcType="DOUBLE" />
     <result column="flag" property="flag" jdbcType="CHAR" />

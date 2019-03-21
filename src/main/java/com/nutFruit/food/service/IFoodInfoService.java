@@ -5,7 +5,7 @@ import com.nutFruit.food.domain.FoodInfo;
 import java.util.List;
 
 /**
- * Created by 田宝军 on 2019/3/20.
+ * Created by Tbj on 2019/3/20.
  */
 public interface IFoodInfoService {
 
@@ -18,5 +18,7 @@ public interface IFoodInfoService {
     List<FoodInfo> selectAll(Integer pageNum ,Integer pageSize);
 
     int updateByPrimaryKey(FoodInfo record);
+
+    int updateByPrimaryKeyWithBLOBs(FoodInfo record);
 
 }

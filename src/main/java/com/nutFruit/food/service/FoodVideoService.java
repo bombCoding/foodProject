@@ -1,11 +1,14 @@
-package com.nutFruit.food.mapper;
+package com.nutFruit.food.service;
 
 import com.nutFruit.food.domain.VideoInfo;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface VideoInfoMapper {
+/**
+ * Created by Lenovo on 2019/3/21.
+ */
+public interface FoodVideoService {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(VideoInfo record);
@@ -18,5 +21,5 @@ public interface VideoInfoMapper {
 
     int updateByPrimaryKey(VideoInfo record);
 
-    List<VideoInfo> selectAllInfo(@Param("startIndex") Integer startIndex,@Param("startIndex") Integer pageSize);
+    List<VideoInfo> selectAll(Integer pageNum,Integer pageSize);
 }
