@@ -23,7 +23,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">上传文件：</label>
                 <div class="layui-input-inline">
-                    <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                    <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
                 </div>
             </div>
             <div class="layui-inline">
@@ -58,20 +58,6 @@
         form.on('submit(formBtn)', function (data) {
             console.log(data);
             return false;
-        });
-        upload.render({
-            elem: '#test2'
-            ,url: '/upload/'
-            ,multiple: true
-            ,before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
-                });
-            }
-            ,done: function(res){
-                //上传完毕
-            }
         });
     });
 
