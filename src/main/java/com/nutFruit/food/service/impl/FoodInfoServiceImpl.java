@@ -45,6 +45,7 @@ public class FoodInfoServiceImpl implements IFoodInfoService {
 
     @Override
     public int updateByPrimaryKey(FoodInfo record) {
+
         return foodInfoMapper.updateByPrimaryKeySelective(record);
     }
 

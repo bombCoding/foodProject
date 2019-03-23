@@ -21,23 +21,23 @@
     <div style="padding: 20px; background-color: #F2F2F2;">
         <label class="layui-form-label">菜品名称</label>
         <div class="layui-input-block">
-            <input type="text" name="foodName" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input" style="width:50%">
+            <input type="text" id="foodName" name="foodName" lay-verify="title" autocomplete="off" placeholder="请输入菜品名称" class="layui-input" style="width:50%">
         </div>
         <br/>
         <label class="layui-form-label">菜品价格</label>
         <div class="layui-input-block">
-            <input type="text" name="foodPrice" lay-verify="title" autocomplete="off" placeholder="请输入菜品单价" class="layui-input"  style="width:50%">
+            <input type="text" id="foodPrice" name="foodPrice" lay-verify="title" autocomplete="off" placeholder="请输入菜品单价" class="layui-input"  style="width:50%">
         </div>
         <br/>
         <label class="layui-form-label">是否上架</label>
         <div class="layui-input-block">
-            <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+            <input type="checkbox" id="flag" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
         </div>
         <br/>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">菜品描述</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入菜品描述信息" class="layui-textarea" style="width:50%"></textarea>
+                <textarea placeholder="请输入菜品描述信息" id="foodDesc" class="layui-textarea" style="width:50%"></textarea>
             </div>
         </div>
         <div class="layui-upload">
@@ -49,7 +49,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button class="layui-btn" onclick="submit1()">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -70,7 +70,7 @@
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="width:100px;height:100px;margin-left:10px">')
+                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="width:100px;height:100px;margin-left:10px"><input name="imgName" type="hidden" value="'+file.name+'"/>')
                 });
             }
             ,done: function(res){
@@ -79,7 +79,7 @@
         });
 
     });
-    layui.use(['form', 'layedit', 'laydate'], function(){
+    layui.use([ 'layedit', 'laydate'], function(){
         //监听指定开关
         form.on('switch(switchTest)', function(data){
             layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
@@ -89,7 +89,31 @@
         });
 
     });
+    function submit1(){
+        var foodName = $("#foodName").val(),
+                foodPrice = $("#foodPrice").val(),
+                flag = $("#flag").val(),
+                foodDesc = $("#foodDesc").val();
+        var pic =[];
+        $("#demo2 input[name='imgName']").each(function(){
+            pic.push($(this).val())
+        });
+        $.ajax({
+            type:"POST",
+            url:'<%=contextPath%>/foodInfo/addFood',
+            data:{foodName:$("#foodName").val(),
+                foodPrice:$("#foodPrice").val(),
+                flag:$("#flag").val(),
+                foodDesc:$("#foodDesc").val(),
+                pic:pic},
+            dataType:"json",
+            success:function(data){
+                alert(data)
+            }
 
+        })
+
+    }
 </script>
 </body>
 </html>

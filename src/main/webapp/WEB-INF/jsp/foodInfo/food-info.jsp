@@ -98,7 +98,7 @@
                 /*, {field: 'pic', title: '图片', width: 70}*/
                /* , {field: 'idcard', title: '身份证', width: 180}
                 , {field: 'deptId', templet: '<div>{{d.deptId.deptname}}</div>', title: '部门', width: 80}
-                , {field: 'address', title: '坐标地址', width: 150}
+                , {field: 'address', title: '坐标地址', width: 150};
                 , {field: 'createtime', title: '建档日期', width: 180}*/
                 , {
                     fixed: 'right', title: '操作', toolbar: '#barDemo', width: 120

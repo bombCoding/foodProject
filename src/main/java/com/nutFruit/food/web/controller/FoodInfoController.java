@@ -9,6 +9,7 @@ import com.nutFruit.food.domain.User;
 import com.nutFruit.food.service.IFoodInfoService;
 import com.nutFruit.food.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,10 +38,15 @@ public class FoodInfoController {
         return "foodInfo/food-info";
     }
     @RequestMapping("/foodAdd")
-    public String foodInfoAdd(){
-        return "foodInfo/uploadPic";
-    }
+    public String foodInfoAdd(){return "foodInfo/uploadPic";}
 
+    @RequestMapping(value = "/addFood", method = RequestMethod.POST)
+    @ResponseBody
+    public void addFoodInfo(FoodInfo foodInfo){
+        System.out.print(foodInfo.toString());
+
+       // foodInfoService.insert();
+    }
 
 
     /**
