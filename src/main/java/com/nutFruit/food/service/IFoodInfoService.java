@@ -15,10 +15,17 @@ public interface IFoodInfoService {
 
     FoodInfo selectByPrimaryKey(Long id);
 
-    List<FoodInfo> selectAll(Integer pageNum ,Integer pageSize);
+    /**
+     * 按类型查找列表  type  1 app请求   2后台管理请求
+     * @Author: sun JinShuang
+     * @Date: 2019/3/23
+     */
+    List<FoodInfo> selectAll(Integer pageNum ,Integer pageSize,Integer type);
 
     int updateByPrimaryKey(FoodInfo record);
 
     int updateByPrimaryKeyWithBLOBs(FoodInfo record);
+
+    int getAllCountNum();
 
 }

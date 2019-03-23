@@ -33,11 +33,10 @@ public class FoodVideoInfoController {
 
         return "video/video-info";
     }
-    /*@RequestMapping("/videoAdd")
+    @RequestMapping("/videoAdd")
     public String foodInfoAdd(){
-        return "video/uploadPic";
+        return "video/video-add";
     }
-*/
 
 
     /**
@@ -49,7 +48,7 @@ public class FoodVideoInfoController {
     @ResponseBody
     public Map<String, Object> getAppFoodInfos(Integer pageNum, Integer pageSize){
 
-        List<VideoInfo> videoInfos = foodVideoService.selectAll(pageNum,pageSize);
+        List<VideoInfo> videoInfos = foodVideoService.selectAll(pageNum,pageSize,1);
 
         return buildResponse(0,SUCCESS,videoInfos,null);
     }
@@ -64,12 +63,8 @@ public class FoodVideoInfoController {
     @ResponseBody
     public Map<String, Object> getFoodInfo(Integer page,Integer limit){
 
-        List<VideoInfo> videoInfos = foodVideoService.selectAll(page,limit);
-        //分页
-        if (page < 0) {
-            page = 1;
-            PageHelper.startPage(page, limit);
-        }
-        return buildResponse(0,SUCCESS,videoInfos,videoInfos.size());
+        List<VideoInfo> videoInfos = foodVideoService.selectAll(page,limit,2);
+        int count = foodVideoService.getAllCountNum();
+        return buildResponse(0,SUCCESS,videoInfos,count);
     }
 }

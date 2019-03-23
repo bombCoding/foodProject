@@ -34,11 +34,12 @@ public class FoodInfoController {
 
     @RequestMapping("/foodList")
     public String foodInfoView() {
-
         return "foodInfo/food-info";
     }
     @RequestMapping("/foodAdd")
-    public String foodInfoAdd(){return "foodInfo/uploadPic";}
+    public String foodInfoAdd(){
+        return "foodInfo/food-add";
+    }
 
     @RequestMapping(value = "/addFood", method = RequestMethod.POST)
     @ResponseBody
@@ -58,7 +59,7 @@ public class FoodInfoController {
     @ResponseBody
     public Map<String, Object> getAppFoodInfos(Integer pageNum,Integer pageSize){
 
-        List<FoodInfo> foodInfos = foodInfoService.selectAll(pageNum,pageSize);
+        List<FoodInfo> foodInfos = foodInfoService.selectAll(pageNum,pageSize,1);
 
         return buildResponse(0,SUCCESS,foodInfos,null);
     }
@@ -73,15 +74,17 @@ public class FoodInfoController {
     @ResponseBody
     public Map<String, Object> getFoodInfo(Integer page,Integer limit){
 
-        List<FoodInfo> foodInfos = foodInfoService.selectAll(page,limit);
+        List<FoodInfo> foodInfos = foodInfoService.selectAll(page,limit,2);
+        int allCount = foodInfoService.getAllCountNum();
         //分页
         if (page < 0) {
             page = 1;
             PageHelper.startPage(page, limit);
         }
-        return buildResponse(0,SUCCESS,foodInfos,15);
+        return buildResponse(0,SUCCESS,foodInfos,allCount);
     }
 
+    //删除
     @RequestMapping(path = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("id") Long id) {
@@ -101,17 +104,18 @@ public class FoodInfoController {
     }
 
     //更新
-    @RequestMapping(path = "/update" ,method = RequestMethod.POST)
+    @RequestMapping(path = "/updateOrAdd" ,method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> update(@RequestBody JSONObject ob) {
-        System.out.println("ob.toJSONString() = " + ob.toJSONString());
         String data = ob.toJSONString();
         FoodInfo updateInfo = JsonUtils.toObject(data,FoodInfo.class);
-        if (updateInfo != null) {
+        if (updateInfo.getId() == null) {// 新增
             int index = foodInfoService.updateByPrimaryKey(updateInfo);
             if (index == 0 || index == -1) {
                 return buildResponse(1,ERROR);
             }
+        }else{//修改
+
         }
         return buildResponse(0,SUCCESS);
     }

@@ -1,5 +1,8 @@
 package com.nutFruit.food.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,13 +15,35 @@ public class VideoInfo implements Serializable {
 
     private String videoDesc;
 
+    private Integer status;
+
+    private String videoPic;
+
     private Long createUserId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
+
+    public String getVideoPic() {
+        return videoPic;
+    }
+
+    public void setVideoPic(String videoPic) {
+        this.videoPic = videoPic;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

@@ -18,5 +18,7 @@ public interface VideoInfoMapper {
 
     int updateByPrimaryKey(VideoInfo record);
 
-    List<VideoInfo> selectAllInfo(@Param("startIndex") Integer startIndex,@Param("startIndex") Integer pageSize);
+    List<VideoInfo> selectAllInfo(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize,@Param("type") Integer type);
+
+    int getAllCountNum();
 }

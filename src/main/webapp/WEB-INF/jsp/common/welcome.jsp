@@ -42,7 +42,7 @@
                     <li class="layui-timeline-item">
                         <i class="layui-icon layui-timeline-axis"></i>
                         <div class="layui-timeline-content layui-text">
-                            <div class="layui-timeline-title">开发作者 By：iArchie</div>
+                            <div class="layui-timeline-title">开发作者 By：handsome boy</div>
                         </div>
                     </li>
                     <li class="layui-timeline-item">

@@ -33,7 +33,7 @@ public class AppTest {
 
     @Test
     public void testFoodList() {
-        List<FoodInfo> foodInfos = iFoodInfoService.selectAll(1,5);
+        List<FoodInfo> foodInfos = iFoodInfoService.selectAll(1,5,1);
         for (FoodInfo foodInfo : foodInfos) {
             System.out.println("foodInfo = " + foodInfo.toString());
         }

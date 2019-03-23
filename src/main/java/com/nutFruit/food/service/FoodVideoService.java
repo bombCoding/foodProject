@@ -21,5 +21,7 @@ public interface FoodVideoService {
 
     int updateByPrimaryKey(VideoInfo record);
 
-    List<VideoInfo> selectAll(Integer pageNum,Integer pageSize);
+    List<VideoInfo> selectAll(Integer pageNum,Integer pageSize,Integer type);
+
+    int getAllCountNum();
 }

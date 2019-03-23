@@ -16,6 +16,8 @@ public class FoodInfo implements Serializable {
 
     private String flag;
 
+    private String flagStr;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
@@ -31,6 +33,14 @@ public class FoodInfo implements Serializable {
     private List<FoodPic> foodPics;
 
     private static final long serialVersionUID = 1L;
+
+    public String getFlagStr() {
+        return flagStr;
+    }
+
+    public void setFlagStr(String flagStr) {
+        this.flagStr = flagStr;
+    }
 
     public Long getId() {
         return id;

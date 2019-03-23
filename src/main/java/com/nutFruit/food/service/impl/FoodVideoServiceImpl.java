@@ -48,8 +48,14 @@ public class FoodVideoServiceImpl implements FoodVideoService {
     }
 
     @Override
-    public List<VideoInfo> selectAll(Integer pageNum, Integer pageSize) {
+    public List<VideoInfo> selectAll(Integer pageNum, Integer pageSize, Integer type) {
         Integer startIndex = (pageNum-1)*pageSize;
-        return videoInfoMapper.selectAllInfo(startIndex,pageSize);
+        return videoInfoMapper.selectAllInfo(startIndex,pageSize,type);
     }
+
+    @Override
+    public int getAllCountNum() {
+        return videoInfoMapper.getAllCountNum();
+    }
+
 }

@@ -22,5 +22,7 @@ public interface FoodInfoMapper {
 
     int updateByPrimaryKey(FoodInfo record);
 
-    List<FoodInfo> selectAllInfo(@Param("startIndex")Integer startIndex , @Param("pageSize")Integer pageSize);
+    List<FoodInfo> selectAllInfo(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize, @Param("type") Integer type);
+
+    int getAllCountNum();
 }

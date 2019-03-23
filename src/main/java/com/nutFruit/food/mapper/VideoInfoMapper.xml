@@ -6,12 +6,14 @@
     <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
     <result column="video_name" property="videoName" jdbcType="VARCHAR" />
     <result column="video_desc" property="videoDesc" jdbcType="VARCHAR" />
+    <result column="video_pic" property="videoPic" jdbcType="VARCHAR" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER"/>
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, video_url, video_name, video_desc, create_user_id, create_time, update_time
+    id, video_url, video_name, video_desc, create_user_id, create_time, update_time,status,video_pic
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -28,10 +30,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into video_info (video_url, video_name, video_desc, 
-      create_user_id, create_time, update_time
+      create_user_id, create_time, update_time,status,video_pic
       )
     values (#{videoUrl,jdbcType=VARCHAR}, #{videoName,jdbcType=VARCHAR}, #{videoDesc,jdbcType=VARCHAR}, 
       #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+    ,#{status,jdbcType=INTEGER},#{videoPic,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.nutFruit.food.domain.VideoInfo" >
@@ -58,6 +61,12 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="videoPic != null" >
+        video_desc,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="videoUrl != null" >
@@ -77,6 +86,12 @@
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="videoPic != null" >
+        #{videoPic,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -101,6 +116,12 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="videoPic != null" >
+        video_pic = #{videoPic,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -111,17 +132,28 @@
       video_desc = #{videoDesc,jdbcType=VARCHAR},
       create_user_id = #{createUserId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      status = #{status,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      video_pic = #{videoPic,jdbcType=VARCHAR},
     where id = #{id,jdbcType=BIGINT}
   </update>
 
 
-  <select id="selectAllInfo" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectAllInfo" resultMap="BaseResultMap" parameterType="map" >
     SELECT
     <include refid="Base_Column_List" />
     FROM video_info
-    WHERE id = #{id,jdbcType=BIGINT}
+    WHERE 1=1
+    <if test="type != null and type == 1">
+      AND status = 1
+    </if>
+    <if test="type != null and type == 2">
+      AND status !=0
+    </if>
     ORDER BY id DESC
     limit ${startIndex},${pageSize}
+  </select>
+  <select id="getAllCountNum" resultType="int"  >
+    SELECT count(*)  FROM video_info i WHERE  status !=0
   </select>
 </mapper>

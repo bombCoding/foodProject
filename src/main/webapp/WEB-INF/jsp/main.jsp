@@ -58,34 +58,41 @@
                         <dd><a href="<%=contextPath%>/department/deptAddView" target="iframe">添加部门</a></dd>
                     </dl>
                 </li>--%>
-                <li class="layui-nav-item">
+                <%--<li class="layui-nav-item">
                     <a href="javascript:;">员工管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/employee/empView" target="iframe">员工查询</a></dd>
                         <dd><a href="<%=contextPath%>/employee/empAddView" target="iframe">添加员工</a></dd>
                     </dl>
-                </li>
+                </li>--%>
                 <li class="layui-nav-item">
                     <a href="javascript:;">菜品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/foodInfo/foodList" target="iframe">菜品查询</a></dd>
-                        <dd><a href="<%=contextPath%>/foodInfo/foodAdd" target="iframe">菜品信息</a></dd>
+                        <dd><a href="<%=contextPath%>/foodInfo/foodAdd" target="iframe">添加菜品</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">视频管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="<%=contextPath%>/video/videoList" target="iframe">视频列表</a></dd>
+                        <dd><a href="<%=contextPath%>/video/videoAdd" target="iframe">添加视频</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">公告管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="<%=contextPath%>/notice/noticeView" target="iframe">公告查询</a></dd>
+                        <dd><a href="<%=contextPath%>/notice/noticeList" target="iframe">公告查询</a></dd>
                         <dd><a href="<%=contextPath%>/notice/addView" target="iframe">添加公告</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <%--<li class="layui-nav-item">
                     <a href="javascript:;">下载中心</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=contextPath%>/download/downloadView" target="iframe">文档查询</a></dd>
                         <dd><a href="<%=contextPath%>/download/uploadView" target="iframe">上传文档</a></dd>
                     </dl>
-                </li>
+                </li>--%>
                 <li class="layui-nav-item">
                     <a href="javascript:;">系统设置</a>
                     <dl class="layui-nav-child">
@@ -108,7 +115,7 @@
     <div class="layui-footer">
         <!-- 底部固定区域 -->
         <span style="margin-left: 500px">
-              © 2018 iArchie-管理系统-V1.0.1 - 底部固定区域
+              © 2019 handsome boy-管理系统-V1.0.1 - 底部固定区域
         </span>
 
     </div>

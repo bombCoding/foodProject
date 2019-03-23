@@ -15,13 +15,13 @@
 </head>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend style="text-align: center">菜品管理界面</legend>
+    <legend style="text-align: center">视频管理界面</legend>
 </fieldset>
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-header">菜品信息列表</div>
+                <div class="layui-card-header">视频信息列表</div>
                 <form action="" method="post">
                     <table id="demo" lay-filter="test"></table>
                 </form>
@@ -127,22 +127,18 @@
         table.render({
             elem: '#demo'
             , height: 400
-            , url: '<%=contextPath%>/foodInfo/list' //数据接口
+            , url: '<%=contextPath%>/video/list' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'foodName', title: '菜名', width: 120}
-                , {field: 'recommendedPrice', title: '推荐价', width: 90}
-                , {field: 'flag', title: '状态', width: 90}
-                , {field: 'foodDesc', title: '简介', width: 600}
-                , {field: 'createTime', title: '添加时间', width: 200}
-                /*, {field: 'pic', title: '图片', width: 70}*/
-               /* , {field: 'idcard', title: '身份证', width: 180}
-                , {field: 'deptId', templet: '<div>{{d.deptId.deptname}}</div>', title: '部门', width: 80}
-                , {field: 'address', title: '坐标地址', width: 150}
-                , {field: 'createtime', title: '建档日期', width: 180}*/
+                {align:'center', title: '编号',type:'numbers',width:100}
+                , {field: 'videoName', title: '视频菜名', width: 150,align:'center'}
+                , {field: 'videoUrl', title: '视频地址', width: 200,align:'center'}
+                , {field: 'videoPic', title: '视频封面图', width: 200,align:'center'}
+                , {field: 'videoDesc', title: '视频内容简介', width: 300,align:'center'}
+                , {field: 'createTime', title: '添加时间', width: 200,align:'center'}
+
                 , {
-                    fixed: 'right', title: '操作', toolbar: '#barDemo', width: 120
+                    fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 ,align:'center'
                 }
             ]]
         });
@@ -151,21 +147,21 @@
         table.on('tool(test)', function (obj) {
             var data = obj.data;
             if (obj.event == 'del') {
-                layer.confirm('真的删除员工\t' + data.name + "\t吗！", function (index) {
-
+                layer.confirm('确认删除这条信息吗！', function (index) {
                     //异步像服务器发送删除请求
                     $.ajax({
-                        url: '<%=contextPath%>/employee/empDelete',
-                        type: 'GET',
+                        url: '<%=contextPath%>/video/delete',
+                        type: 'POST',
                         data: {'id': data.id},
+                        dataType:'JSON',
                         success: function (result) {
-                            if (result == "success") {
-                                layer.msg("删除成功!" + result, {icon: 6});
+                            if (result.code == 0) {
+                                layer.msg("删除成功!" , {icon: 6});
                                 obj.del();
                                 layer.close(index);
 
                             } else {
-                                layer.msg("删除失败!" + result, {icon: 5});
+                                layer.msg("删除失败!", {icon: 5});
                                 layer.close(index);
                             }
                         },
@@ -176,22 +172,19 @@
                         },
                     });
                 });
-                //更新用户
+                //更新信息
             } else if (obj.event == 'edit') {
                 layer.open({
                     type: 1,
-                    title: "更新用户",
-                    area: ['480px', '510px'],
+                    title: "修改信息",
+                    area: ['700px', '500px'],
                     content: $("#popUpdateEmp"),
                     success: function () {
                         //回显数据
-                        $("#name").val(data.name);
-                        $("#phone").val(data.phone);
-                        $("#email").val(data.email);
-                        $("#eduschool").val(data.eduschool);
-                        $("#idcard").val(data.idcard);
-                        $("#address").val(data.address);
-                        $("#createtime").val(data.createtime);
+                        $("#title").val(data.title);
+                        $("#noticeId").val(data.id);
+                        $("#noticeInfo").val(data.noticeInfo);
+                        $("#status").val(data.status);
                     },
                 });
             }
@@ -200,19 +193,19 @@
         form.on('submit(updateFormBtn)', function (data) {
             //发送ajax请求
             $.ajax({
-                url: '<%=contextPath%>/employee/empUpdate',
+                url: '<%=contextPath%>/notice/addOrUpdate',
                 data: JSON.stringify(data.field),
                 type: 'POST',
                 contentType: 'application/json',  //数据类型格式
                 success: function (result) {
-                    if (result == "success") {
+                    if (result.code == 0) {
                         layer.closeAll();
                         layer.msg('更新成功', {time: 1 * 1000}, function () {
                             location.reload();
                         });
                     } else {
                         layer.closeAll();
-                        layer.msg('更新失败', {time: 1 * 1000}, function () {
+                        layer.msg(result.msg, {time: 1 * 1000}, function () {
                             location.reload();
                         });
                     }
@@ -223,6 +216,11 @@
                 },
             });
             return false;
+        });
+        form.on('switch(switchTest)', function(data){
+            var status = this.checked ? '1' : '2';
+            $("#status").val(status);
+            layer.tips('温馨提示：上架将会在APP中展示该信息，下架将不会展示！', data.othis)
         });
     });
 </script>

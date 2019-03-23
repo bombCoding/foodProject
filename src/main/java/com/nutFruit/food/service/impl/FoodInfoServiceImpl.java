@@ -38,9 +38,9 @@ public class FoodInfoServiceImpl implements IFoodInfoService {
     }
 
     @Override
-    public List<FoodInfo> selectAll(Integer pageNum ,Integer pageSize) {
+    public List<FoodInfo> selectAll(Integer pageNum ,Integer pageSize,Integer type) {
         Integer startIndex = (pageNum-1)*pageSize;
-        return foodInfoMapper.selectAllInfo(startIndex,pageSize);
+        return foodInfoMapper.selectAllInfo(startIndex,pageSize,type);
     }
 
     @Override
@@ -52,5 +52,10 @@ public class FoodInfoServiceImpl implements IFoodInfoService {
     @Override
     public int updateByPrimaryKeyWithBLOBs(FoodInfo record) {
         return foodInfoMapper.updateByPrimaryKeyWithBLOBs(record);
+    }
+
+    @Override
+    public int getAllCountNum() {
+        return foodInfoMapper.getAllCountNum();
     }
 }
