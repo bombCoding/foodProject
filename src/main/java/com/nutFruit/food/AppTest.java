@@ -20,14 +20,6 @@ public class AppTest {
     private IUserService service;
 
     @Autowired
-    private IEmployeeService employeeService;
-
-    @Autowired
-    private IPositionService positionService;
-    @Autowired
-    private IDepartmentService departmentService;
-
-    @Autowired
     private IFoodInfoService iFoodInfoService;
 
 
@@ -57,32 +49,6 @@ public class AppTest {
         }
     }
 
-    @Test
-    public void testEmpList() {
-
-        List<Employee> employees = employeeService.selectAll();
-        for (Employee employee : employees) {
-            System.out.println("employee = " + employee.getDeptId().getDeptname());
-        }
-    }
-
-    @Test
-    public void testPositionList() {
-        List<Position> positions = positionService.selectAll("DBA");
-
-        for (Position position : positions) {
-            System.out.println("position = " + position);
-        }
-    }
-
-    @Test
-    public void deptList(){
-
-        List<Department> list = departmentService.selectAll("技术");
-        for (Department department : list) {
-            System.out.println("department = " + department);
-        }
-    }
 
 
 }

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String contextPath = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+contextPath+"/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,9 +58,11 @@
                     <textarea placeholder="请输入菜品描述信息" id="foodDesc" class="layui-textarea" ></textarea>
                 </div>
             </div>
+            <label class="layui-form-label">上传图片</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn" id="test2" >多图片上传</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                <input type="text" id="picStr" name="picStr" hidden>
+                <button type="button" class="layui-btn" id="test2" >上传图片</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;margin-left: 16%;">
                     预览图：
                     <div class="layui-upload-list" id="demo2"></div>
                 </blockquote>
@@ -146,9 +149,16 @@
                         $("#foodDesc").val(data.foodDesc);
                         $("#foodId").val(data.id);
                         $("#flag").val(data.flag);
-                        //$("#flagStr").val(data.flagStr);
-                        /*$("#address").val(data.address);
-                        $("#createtime").val(data.createtime);*/
+                        var pic = data.foodPics;
+                        var pics = '';
+                        for(var i = 0;i<pic.length;i++){
+                            $('#demo2').append('<div class="pic" style="display: inline-block; width: 100px; height: 100px; margin-left: 10px;" >' +
+                                    '<img src="<%=basePath%>'+ pic[i].imgUrl+'" alt="" class="layui-upload-img" style="width:100px;height:100px;">' +
+                                    '<p class="delt" style="float: right;position: relative;' +
+                                    'top: -102px;right: 4px;display: inline-block;overflow: fix;cursor: pointer;">x</p></div>');
+                            pics = pics + pic[i].imgUrl +',';
+                        }
+                        $("#picStr").val(pics);
                     },
                 });
             }
@@ -157,7 +167,7 @@
         form.on('submit(updateFormBtn)', function (data) {
             //发送ajax请求
             $.ajax({
-                url: '<%=contextPath%>/foodInfo/update',
+                url: '<%=contextPath%>/foodInfo/updateOrAdd',
                 data: JSON.stringify(data.field),
                 type: 'POST',
                 contentType: 'application/json',  //数据类型格式
@@ -194,24 +204,32 @@
         //多图片上传
         upload.render({
             elem: '#test2'
-            ,url: '/upload/'
+            ,url: '<%=contextPath%>/upload/file/img'
             ,multiple: true
+            ,number: 5//最多上传文件数为5
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
                     $('#demo2').append('<div class="pic" style="display: inline-block; width: 100px; height: 100px; margin-left: 10px;" >' +
                             '<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="width:100px;height:100px;">' +
                             '<p class="delt" style="float: right;position: relative;' +
-                            'top: -102px;right: 4px;display: inline-block;overflow: fix;cursor: pointer;">x</p></div>')
+                            'top: -102px;right: 4px;display: inline-block;overflow: fix;cursor: pointer;">x</p></div>');
                 });
-            }
-            ,done: function(res){
-                //上传完毕
+            },done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }else{
+                    var pic = $("#picStr").val();
+                    $("#picStr").val(pic +','+res.data);
+                    return layer.msg('上传成功');
+                }
             }
         });
     });
-    $(".delt",'onclick',function(){
-        $(this.parent(".pic")).remove();
+
+    $(".delt").click(function(){
+        this.parent(".pic").remove();
     });
 </script>
 </body>

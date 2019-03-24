@@ -3,18 +3,15 @@ package com.nutFruit.food.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.nutFruit.food.context.UserContext;
-import com.nutFruit.food.domain.Employee;
 import com.nutFruit.food.domain.FoodInfo;
 import com.nutFruit.food.domain.User;
 import com.nutFruit.food.service.IFoodInfoService;
 import com.nutFruit.food.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,15 +37,6 @@ public class FoodInfoController {
     public String foodInfoAdd(){
         return "foodInfo/food-add";
     }
-
-    @RequestMapping(value = "/addFood", method = RequestMethod.POST)
-    @ResponseBody
-    public void addFoodInfo(FoodInfo foodInfo){
-        System.out.print(foodInfo.toString());
-
-       // foodInfoService.insert();
-    }
-
 
     /**
      * app请求接口
@@ -108,15 +96,20 @@ public class FoodInfoController {
     @ResponseBody
     public Map<String, Object> update(@RequestBody JSONObject ob) {
         String data = ob.toJSONString();
-        FoodInfo updateInfo = JsonUtils.toObject(data,FoodInfo.class);
-        if (updateInfo.getId() == null) {// 新增
-            int index = foodInfoService.updateByPrimaryKey(updateInfo);
-            if (index == 0 || index == -1) {
-                return buildResponse(1,ERROR);
-            }
+        int index = 0;
+        User user = UserContext.getCurrentUser();
+        FoodInfo foodInfo = JsonUtils.toObject(data,FoodInfo.class);
+        if (foodInfo.getId() == null) {// 新增
+            foodInfo.setCreateTime(new Date());
+            foodInfo.setCreateUserId(user.getId().toString());
+            foodInfo.setFlag("1");
+            index = foodInfoService.insertFoodInfo(foodInfo);
         }else{//修改
-
+            index = foodInfoService.updateFoodInfo(foodInfo,user.getId());
         }
-        return buildResponse(0,SUCCESS);
+        if (index == 0 || index == -1) {
+            return buildResponse(1,"操作失败");
+        }
+        return buildResponse(0,SUCCESS,"/foodInfo/foodList",null);
     }
 }

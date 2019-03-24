@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String contextPath = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+contextPath+"/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,92 +33,53 @@
 
 <%--隐藏编辑弹窗表单--%>
 <div class="layui-row" id="popUpdateEmp" style="display:none;">
-    <div class="layui-col-md10">
-        <form class="layui-form layui-from-pane" action="" style="margin-top:20px">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-inline">
-                        <input id="name" type="text" name="name" lay-verify="required" autocomplete="off"
-                               placeholder="请输入姓名"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-inline">
-                        <input type="radio" name="sex" value="男" title="男" checked="">
-                        <input type="radio" name="sex" value="女" title="女">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">手机号</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" id="phone" name="phone" lay-verify="required|phone" autocomplete="off"
-                               placeholder="请输入手机号"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="email" name="email" lay-verify="email" autocomplete="off"
-                               placeholder="请输入邮箱"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">职位</label>
-                    <div class="layui-input-inline">
-                        <select name="positionId" lay-filter="required" id="positionId">
-                            <option value="">请选择职位</option>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">学历</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="eduschool" name="eduschool" lay-verify="required" autocomplete="off"
-                               placeholder="请输入学历"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">身份证</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="idcard" name="idcard" lay-verify="required" autocomplete="off"
-                               placeholder="请输入身份证"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">部门</label>
-                    <div class="layui-input-inline">
-                        <select name="deptId" lay-filter="required" id="deptId">
-                            <option value="">请选择部门</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">联系地址</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="address" name="address" lay-verify="required" autocomplete="off"
-                               placeholder="请输入联系地址" class="layui-input">
-                    </div>
+    <form class="layui-form" method="post">
+        <div style="padding: 20px; background-color: #F2F2F2;">
+            <input type="text" id="videoId" name="id" lay-verify="title" hidden>
+            <label class="layui-form-label">视频名称</label>
+            <div class="layui-input-block">
+                <input type="text" id="foodName" name="videoName" lay-verify="title" autocomplete="off" placeholder="请输入视频标题" class="layui-input" style="width:30%">
+            </div>
+            <br/>
+            <label class="layui-form-label">是否上架</label>
+            <div class="layui-input-block">
+                <input type="checkbox" id="flag" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+            </div>
+            <br/>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">菜品描述</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入菜品描述信息，200字以内" id="videoDesc" name="videoDesc" class="layui-textarea" ></textarea>
                 </div>
             </div>
-            <button class="layui-btn" lay-submit lay-filter="updateFormBtn"
-                    style="margin-left: 120px">立即添加
-            </button>
-        </form>
-    </div>
+            <label class="layui-form-label">封面图片</label>
+            <div class="layui-upload">
+                <input type="text" id="videoPic" name="videoPic" hidden>
+                <button type="button" class="layui-btn" id="test1">点击上传</button>
+                <div class="layui-upload-list" style="margin-left: 120px;">
+                    <img class="layui-upload-img" id="demo1" style="width:100px;height:100px;">
+                    <p id="demoText"></p>
+                </div>
+            </div>
+            <label class="layui-form-label">视频文件</label>
+            <input type="text" id="videoUrl" name="videoUrl" lay-verify="title" hidden>
+            <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>点击上传</button>
+            <div style="margin-top: 50px;"> </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="formDemo">提交修改</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+
 <script src="<%=contextPath%>/layui/layui.js"></script>
 <script>
     layui.use(['table', 'form'], function () {
@@ -181,19 +143,21 @@
                     content: $("#popUpdateEmp"),
                     success: function () {
                         //回显数据
-                        $("#title").val(data.title);
-                        $("#noticeId").val(data.id);
-                        $("#noticeInfo").val(data.noticeInfo);
-                        $("#status").val(data.status);
+                        $("#videoId").val(data.id);
+                        $("#foodName").val(data.videoName);
+                        $("#videoDesc").val(data.videoDesc);
+                        $("#videoPic").val(data.videoPic);
+                        $("#demo1").attr("src",'<%=basePath%>'+ data.videoPic);
+                        $("#videoUrl").val(data.videoUrl);
                     },
                 });
             }
         });
         //更新操作
-        form.on('submit(updateFormBtn)', function (data) {
+        form.on('submit(formDemo)', function (data) {
             //发送ajax请求
             $.ajax({
-                url: '<%=contextPath%>/notice/addOrUpdate',
+                url: '<%=contextPath%>/video/updateOrAdd',
                 data: JSON.stringify(data.field),
                 type: 'POST',
                 contentType: 'application/json',  //数据类型格式
@@ -223,6 +187,52 @@
             layer.tips('温馨提示：上架将会在APP中展示该信息，下架将不会展示！', data.othis)
         });
     });
+    layui.use('upload', function(){
+        var $ = layui.jquery,upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '<%=contextPath%>/upload/file/img'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }else{
+                    $("#videoPic").val(res.data);
+                    return layer.msg('上传成功');
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+        //视频
+        upload.render({
+            elem: '#test5'
+            ,url: '<%=contextPath%>/upload/file/video'
+            ,accept: 'video' //视频
+            ,done: function(res){
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }else{
+                    $("#videoUrl").val(res.data);
+                    return layer.msg('上传成功');
+                }
+            }
+        });
+    });
+
 </script>
 </body>
 </html>

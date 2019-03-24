@@ -32,7 +32,17 @@ public class FoodInfo implements Serializable {
 
     private List<FoodPic> foodPics;
 
+    private String picStr;//图片拼接
+
     private static final long serialVersionUID = 1L;
+
+    public String getPicStr() {
+        return picStr;
+    }
+
+    public void setPicStr(String picStr) {
+        this.picStr = picStr;
+    }
 
     public String getFlagStr() {
         return flagStr;

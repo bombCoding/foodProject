@@ -96,4 +96,9 @@
     where food_id = #{foodId,jdbcType=BIGINT} AND  type = 1 AND  status =1
   </select>
 
+  <delete id="deleteByFoodId" parameterType="java.lang.Long" >
+    delete from food_pic
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </delete>
+
 </mapper>

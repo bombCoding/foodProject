@@ -21,7 +21,7 @@
     <div style="padding: 20px; background-color: #F2F2F2;">
         <label class="layui-form-label">视频名称</label>
         <div class="layui-input-block">
-            <input type="text" id="foodName" name="foodName" lay-verify="title" autocomplete="off" placeholder="请输入视频标题" class="layui-input" style="width:25%">
+            <input type="text" id="foodName" name="videoName" lay-verify="title" autocomplete="off" placeholder="请输入视频标题" class="layui-input" style="width:25%">
         </div>
         <br/>
         <label class="layui-form-label">是否上架</label>
@@ -32,23 +32,25 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">菜品描述</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入菜品描述信息，200字以内" id="foodDesc" class="layui-textarea" style="width:50%"></textarea>
+                <textarea placeholder="请输入菜品描述信息，200字以内" id="videoDesc" name="videoDesc" class="layui-textarea" style="width:50%"></textarea>
             </div>
         </div>
         <label class="layui-form-label">封面图片</label>
         <div class="layui-upload">
+            <input type="text" id="videoPic" name="videoPic" lay-verify="title" hidden>
             <button type="button" class="layui-btn" id="test1">点击上传</button>
             <div class="layui-upload-list" style="margin-left: 120px;">
-                <img class="layui-upload-img" id="demo1">
+                <img class="layui-upload-img" id="demo1" style="width:100px;height:100px;">
                 <p id="demoText"></p>
             </div>
         </div>
         <label class="layui-form-label">视频文件</label>
+        <input type="text" id="videoUrl" name="videoUrl" lay-verify="title" hidden>
         <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>点击上传</button>
         <div style="margin-top: 50px;"> </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="formDemo">提交修改</button>
+                <button class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -64,7 +66,7 @@
         form.on('submit(formDemo)', function (data) {
             ///像服务端发送请求
             $.ajax({
-                url: '<%=contextPath%>/video/addOrUpdate',
+                url: '<%=contextPath%>/video/updateOrAdd',
                 type: 'POST',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',  //数据类型格式
@@ -90,7 +92,7 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            ,url: '/upload/'
+            ,url: '<%=contextPath%>/upload/file/img'
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -101,8 +103,10 @@
                 //如果上传失败
                 if(res.code > 0){
                     return layer.msg('上传失败');
+                }else{
+                    $("#videoPic").val(res.data);
+                    return layer.msg('上传成功');
                 }
-                //上传成功
             }
             ,error: function(){
                 //演示失败状态，并实现重传
@@ -116,39 +120,19 @@
         //视频
         upload.render({
             elem: '#test5'
-            ,url: '/upload/'
+            ,url: '<%=contextPath%>/upload/file/video'
             ,accept: 'video' //视频
             ,done: function(res){
-                console.log(res)
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }else{
+                    $("#videoUrl").val(res.data);
+                    return layer.msg('上传成功');
+                }
             }
         });
     });
 
-    function submit1(){
-        var foodName = $("#foodName").val(),
-                foodPrice = $("#foodPrice").val(),
-                flag = $("#flag").val(),
-                foodDesc = $("#foodDesc").val();
-        var pic =[];
-        $("#demo2 input[name='imgName']").each(function(){
-            pic.push($(this).val())
-        });
-        $.ajax({
-            type:"POST",
-            url:'<%=contextPath%>/foodInfo/addFood',
-            data:{foodName:$("#foodName").val(),
-                foodPrice:$("#foodPrice").val(),
-                flag:$("#flag").val(),
-                foodDesc:$("#foodDesc").val(),
-                pic:pic},
-            dataType:"json",
-            success:function(data){
-                alert(data)
-            }
-
-        })
-
-    }
 </script>
 </body>
 </html>

@@ -65,7 +65,7 @@
         status,
       </if>
       <if test="videoPic != null" >
-        video_desc,
+        video_pic,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >

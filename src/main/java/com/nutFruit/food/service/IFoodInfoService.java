@@ -9,11 +9,23 @@ import java.util.List;
  */
 public interface IFoodInfoService {
 
+
     int deleteByPrimaryKey(Long id);
 
     int insert(FoodInfo record);
 
+    int insertSelective(FoodInfo record);
+
+    int insertFoodInfo(FoodInfo record);
+
     FoodInfo selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(FoodInfo record);
+
+    int updateByPrimaryKeyWithBLOBs(FoodInfo record);
+
+    int updateByPrimaryKey(FoodInfo record);
+
 
     /**
      * 按类型查找列表  type  1 app请求   2后台管理请求
@@ -22,10 +34,8 @@ public interface IFoodInfoService {
      */
     List<FoodInfo> selectAll(Integer pageNum ,Integer pageSize,Integer type);
 
-    int updateByPrimaryKey(FoodInfo record);
-
-    int updateByPrimaryKeyWithBLOBs(FoodInfo record);
-
     int getAllCountNum();
+
+    int updateFoodInfo(FoodInfo foodInfo,Long userId);
 
 }

@@ -18,4 +18,6 @@ public interface FoodPicMapper {
     int updateByPrimaryKey(FoodPic record);
 
     List<FoodPic> selectByFoodId(Long foodId);
+
+    int deleteByFoodId(Long foodId);
 }

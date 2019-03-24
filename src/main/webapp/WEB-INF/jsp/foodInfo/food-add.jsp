@@ -26,7 +26,7 @@
         <br/>
         <label class="layui-form-label">菜品价格</label>
         <div class="layui-input-block">
-            <input type="text" id="foodPrice" name="foodPrice" lay-verify="title" autocomplete="off" placeholder="请输入菜品单价" class="layui-input"  style="width:50%">
+            <input type="text" id="foodPrice" name="recommendedPrice" lay-verify="title" autocomplete="off" placeholder="请输入菜品单价" class="layui-input"  style="width:50%">
         </div>
         <br/>
         <label class="layui-form-label">是否上架</label>
@@ -37,19 +37,21 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">菜品描述</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入菜品描述信息" id="foodDesc" class="layui-textarea" style="width:50%"></textarea>
+                <textarea placeholder="请输入菜品描述信息" id="foodDesc" name="foodDesc" class="layui-textarea" style="width:50%"></textarea>
             </div>
         </div>
+        <label class="layui-form-label">是否上架</label>
         <div class="layui-upload">
+            <input type="text" id="picStr" name="picStr" hidden>
             <button type="button" class="layui-btn" id="test2">多图片上传</button>
-            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px; margin-left: 8%;">
                 预览图：
                 <div class="layui-upload-list" id="demo2"></div>
             </blockquote>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" onclick="submit1()">立即提交</button>
+                <button class="layui-btn"  lay-submit lay-filter="formDemo"<%-- onclick="submit1()--%>">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -58,6 +60,33 @@
 
 <script src="<%=contextPath%>/layui/layui.js"></script>
 <script>
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        //监听提交点击事件
+        form.on('submit(formDemo)', function (data) {
+            ///像服务端发送请求
+            $.ajax({
+                url: '<%=contextPath%>/foodInfo/updateOrAdd',
+                type: 'POST',
+                data: JSON.stringify(data.field),
+                contentType: 'application/json',  //数据类型格式
+                success: function (result) {
+                    if (result.code == 0) {
+                        layer.msg('添加成功！', {time: 1 * 1000}, function () {
+                            location.href = "<%=contextPath%>" + result.data;
+                        });
+                    } else {
+                        alert("添加失败！");
+                    }
+                },
+                error: function (errorMsg) {
+                    alert("数据异常！" + errorMsg);
+                }
+            });
+            return false;
+        });
+    });
     layui.use('upload', function(){
         var $ = layui.jquery
                 ,upload = layui.upload;
@@ -65,16 +94,26 @@
         //多图片上传
         upload.render({
             elem: '#test2'
-            ,url: '/upload/'
+            ,url: '<%=contextPath%>/upload/file/img'
             ,multiple: true
             ,before: function(obj){
-                //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="width:100px;height:100px;margin-left:10px"><input name="imgName" type="hidden" value="'+file.name+'"/>')
+                    $('#demo2').append('<div class="pic" style="display: inline-block; width: 100px; height: 100px; margin-left: 10px;" >' +
+                            '<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="width:100px;height:100px;">' +
+                            '<p class="delt" style="float: right;position: relative;' +
+                            'top: -102px;right: 4px;display: inline-block;overflow: fix;cursor: pointer;">x</p></div>')
                 });
             }
             ,done: function(res){
                 //上传完毕
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }else{
+                    var pic = $("#picStr").val();
+                    $("#picStr").val(pic +','+res.data);
+                    return layer.msg('上传成功');
+                }
             }
         });
 
@@ -89,31 +128,6 @@
         });
 
     });
-    function submit1(){
-        var foodName = $("#foodName").val(),
-                foodPrice = $("#foodPrice").val(),
-                flag = $("#flag").val(),
-                foodDesc = $("#foodDesc").val();
-        var pic =[];
-        $("#demo2 input[name='imgName']").each(function(){
-            pic.push($(this).val())
-        });
-        $.ajax({
-            type:"POST",
-            url:'<%=contextPath%>/foodInfo/addFood',
-            data:{foodName:$("#foodName").val(),
-                foodPrice:$("#foodPrice").val(),
-                flag:$("#flag").val(),
-                foodDesc:$("#foodDesc").val(),
-                pic:pic},
-            dataType:"json",
-            success:function(data){
-                alert(data)
-            }
-
-        })
-
-    }
 </script>
 </body>
 </html>

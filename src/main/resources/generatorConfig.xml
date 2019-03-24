@@ -20,7 +20,7 @@
 
 		
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://39.104.170.215:3306/foor_test?characterEncoding=utf8&amp;useSSL=false"
+			connectionURL="jdbc:mysql://localhost:3306/foor_test?characterEncoding=utf8&amp;useSSL=false"
 			userId="pst" password="pst123">
 		</jdbcConnection>
 
